@@ -139,25 +139,6 @@ export function RegisterPage() {
           <p className="text-muted-foreground mb-8">Registrate para comenzar tu evaluacion</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Full Name */}
-            <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-foreground mb-2">
-                Nombre Completo
-              </label>
-              <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <input
-                  id="fullName"
-                  type="text"
-                  placeholder="Tu nombre completo"
-                  value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  required
-                  className="w-full pl-12 pr-4 py-3.5 bg-muted/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-sena-green/50 focus:border-sena-green transition-all"
-                />
-              </div>
-            </div>
-
             {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
@@ -200,34 +181,36 @@ export function RegisterPage() {
                   </select>
                 </div>
               </div>
-
-              {/* Program */}
-              <div>
-                <label htmlFor="program" className="block text-sm font-medium text-foreground mb-2">
-                  Programa
-                </label>
-                <div className="relative">
-                  <BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                  <select
-                    id="program"
-                    value={formData.program}
-                    onChange={(e) => setFormData({ ...formData, program: e.target.value })}
-                    required
-                    className="w-full pl-12 pr-4 py-3.5 bg-muted/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-sena-green/50 focus:border-sena-green transition-all appearance-none cursor-pointer"
-                  >
-                    <option value="">Seleccionar</option>
-                    {senaPrograms.map((program) => (
-                      <option key={program} value={program}>{program}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+              {/* Full Name */}
+            <div>
+  <label htmlFor="fullName" className="block text-sm font-medium text-foreground mb-2">
+    Documento
+  </label>
+  <div className="relative">
+    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+    <input
+      id="fullName"
+      type="text"
+      inputMode="numeric"
+      pattern="[0-9]*"
+      placeholder="Número de documento"
+      value={formData.fullName}
+      onChange={(e) => {
+        const value = e.target.value.replace(/\D/g, "");
+        setFormData({ ...formData, fullName: value });
+      }}
+      maxLength={12} // opcional (muchos documentos están entre 6–12)
+      required
+      className="w-full pl-12 pr-4 py-3.5 bg-muted/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-sena-green/50 focus:border-sena-green transition-all"
+    />
+  </div>
+</div>
             </div>
 
             {/* Password */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
-                Contrasena
+                Contraseña
               </label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -254,14 +237,14 @@ export function RegisterPage() {
             {/* Confirm Password */}
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground mb-2">
-                Confirmar Contrasena
+                Confirmar Contraseña
               </label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Repite tu contrasena"
+                  placeholder="Repite tu contraseña"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                   required
